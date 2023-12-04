@@ -1,0 +1,7 @@
+{
+  "name": "BarHopper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
