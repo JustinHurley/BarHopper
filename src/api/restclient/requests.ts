@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const postRequest = (data: any) => {
-    axios.post('http://localhost:8100', data)
-        .then((response: any) => {
-            console.log('Response:', JSON.stringify(response));
-        })
-        .catch((error: any) => {
-            console.error('Error:', error);
-        });
+export const postRequest = async (data: any): Promise<any> => {
+    try {
+        const response = await axios.post('http://localhost:8100', data)
+        console.log('Response:', JSON.stringify(response));
+        return response
+    } catch (e) {
+        console.error('Error:', e);
+    }
 }

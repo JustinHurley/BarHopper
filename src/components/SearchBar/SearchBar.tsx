@@ -2,12 +2,26 @@ import React, { useState } from 'react';
 import { IonItem, IonLabel, IonInput } from '@ionic/react';
 import { postRequest } from '../../api/restclient';
 
-const TextInputComponent = ({ label }: any) => {
+const SearchBar = ({ label }: any) => {
     const [text, setText] = useState('');
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = async (event: any) => {
         setText(event.detail.value);
-        const response = postRequest({ test: 'hello world' })
+        try {
+            const response = await postRequest({ 
+                location: {
+                    latitude: 40.783058,
+                    longitude: -73.971252
+                } 
+            })
+            console.log(response)
+            response.data.results.forEach((item: any) => {
+                console.log(item.name)
+            })
+        } catch (e) {
+            console.error(`Couldn't get results for post request: ${e}`)
+        }
+        
     };
 
     return (
@@ -18,4 +32,4 @@ const TextInputComponent = ({ label }: any) => {
     );
 };
 
-export default TextInputComponent;
+export default SearchBar;
