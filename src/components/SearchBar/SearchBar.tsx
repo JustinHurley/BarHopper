@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { IonItem, IonLabel, IonInput } from '@ionic/react';
+import { IonLabel, IonSearchbar, IonContent, IonItem, IonAvatar } from '@ionic/react';
 import { postRequest } from '../../api/restclient';
 
 const SearchBar = ({ label }: any) => {
     const [text, setText] = useState('');
+    const [results, setResults] = useState([]);
 
     const handleInputChange = async (event: any) => {
         setText(event.detail.value);
@@ -14,10 +15,7 @@ const SearchBar = ({ label }: any) => {
                     longitude: -73.971252
                 } 
             })
-            console.log(response)
-            response.data.results.forEach((item: any) => {
-                console.log(item.name)
-            })
+            setResults(response.data.results);
         } catch (e) {
             console.error(`Couldn't get results for post request: ${e}`)
         }
@@ -25,10 +23,18 @@ const SearchBar = ({ label }: any) => {
     };
 
     return (
-        <IonItem>
+        <IonContent>
             {label && <IonLabel position="floating">{label}</IonLabel>}
-            <IonInput value={text} onIonChange={handleInputChange} />
-        </IonItem>
+            <IonSearchbar value={text} onIonChange={handleInputChange} />
+            {results.map((item: any) => (
+                <IonItem key={JSON.stringify(item)}>
+                    <IonAvatar slot="start">
+                        <img src={item.icon} alt="avatar" />
+                    </IonAvatar>
+                    <IonLabel style={{ whiteSpace: 'normal' }} >{item.name}</IonLabel>
+                </IonItem>
+            ))}
+        </IonContent>
     );
 };
 
