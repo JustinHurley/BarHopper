@@ -1,7 +1,7 @@
 {
-  "name": "BarHopper",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
+    "name": "BarHopper",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react-vite"
 }
